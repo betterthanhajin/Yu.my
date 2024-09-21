@@ -16,7 +16,8 @@ export default function Home() {
     function handleOrientation(event: DeviceOrientationEvent) {
       let x = event.beta ?? 0;
       let y = event.gamma ?? 0;
-      console.log(event.beta, event.gamma);
+      alert(x);
+      alert(y);
       let maxX = 0;
       let maxY = 0;
 
