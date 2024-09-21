@@ -41,17 +41,17 @@ function FlowingLiquidEffect({ tiltX }: { tiltX: number }) {
           </linearGradient>
         </defs>
         {/* Liquid flowing over the top */}
-        {Math.abs(tiltX) > 20 && (
+        {Math.abs(tiltX) > 10 && (
           <path
             d={`
               M${tiltX > 0 ? 100 : 0},0
-              Q${50 + tiltX * 1.5},10 ${tiltX > 0 ? 0 : 100},0
+              Q${50 + tiltX * 2.5},20 ${tiltX > 0 ? 0 : 100},0
               Z
             `}
             fill="url(#orangeJuice)"
-            opacity={Math.min(Math.abs(tiltX) * 0.02, 0.8)}
+            opacity={Math.min(Math.abs(tiltX) * 0.03, 1)}
             style={{
-              height: "500px",
+              height: "600px",
             }}
           />
         )}
