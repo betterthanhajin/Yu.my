@@ -14,7 +14,6 @@ export default function Home() {
     }
 
     function handleOrientation(event: DeviceOrientationEvent) {
-      alert("Device orientation supported");
       let x = event.beta ?? 0;
       let y = event.gamma ?? 0;
       console.log(event.beta, event.gamma);
