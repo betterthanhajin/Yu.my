@@ -79,11 +79,7 @@ function WineEffect({
       }}
       ref={WineEffectRef}
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 100 100"
-        style={{ width: "100%", height: "100%" }}
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
         <defs>
           <linearGradient id="wineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop
