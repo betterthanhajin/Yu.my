@@ -20,7 +20,7 @@ export default function Home() {
     if (position.width > 0 && position.height > 0) {
       try {
         const distance = position.width * 2;
-        let gyro = new GyroPlane({
+        const gyro = new GyroPlane({
           width: position.width,
           height: position.height,
           distance: distance,
