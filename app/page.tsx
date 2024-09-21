@@ -3,48 +3,44 @@ import { GyroPlane } from "gyro-plane";
 import { useEffect, useRef, useState } from "react";
 
 export default function Home() {
-  const [position, setPosition] = useState({ width: 0, height: 0 });
   const WineEffectRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (WineEffectRef.current) {
-      const { width, height } = WineEffectRef.current.getBoundingClientRect();
-      setPosition({
-        width: width,
-        height: height,
-      });
-      console.log({ width, height });
+  function handleOrientation(event: DeviceOrientationEvent) {
+    let x = event.beta ? event.beta : 0;
+    let y = event.gamma ? event.gamma : 0;
+    let maxX = 0;
+    let maxY = 0;
+    if (WineEffectRef.current && typeof window !== "undefined") {
+      maxX = window.innerWidth - WineEffectRef.current.clientWidth;
+      maxY = window.innerHeight - WineEffectRef.current.clientHeight;
     }
-  }, []);
+
+    if (x > 90) {
+      x = 90;
+    }
+    if (x < -90) {
+      x = -90;
+    }
+
+    x += 90;
+    y += 90;
+
+    if (WineEffectRef.current) {
+      WineEffectRef.current.style.left = `${(maxY * y) / 180 - 10}px`;
+      WineEffectRef.current.style.top = `${(maxX * x) / 180 - 10}px`;
+      console.log(
+        WineEffectRef.current.style.left,
+        WineEffectRef.current.style.top
+      );
+    }
+  }
 
   useEffect(() => {
-    if (position.width > 0 && position.height > 0) {
-      try {
-        let width = 0;
-        let height = 0;
-        const distance = position.width * 2;
-        if (window !== undefined) {
-          width = window.innerWidth;
-          height = window.innerHeight;
-        }
-        const gyro = new GyroPlane({
-          width: width,
-          height: height,
-          distance: distance,
-        });
-        const coordinates = gyro.getScreenCoordinates();
-        // const randomOffset = 0.01;
-        const alpha = coordinates.x;
-        // + (Math.random() - 0.5) * randomOffset;
-        const beta = coordinates.y;
-        // + (Math.random() - 0.5) * randomOffset;
-        console.log({ alpha, beta });
-        gyro.updateOrientation({ alpha, beta });
-      } catch (error) {
-        console.error("Error initializing GyroPlane:", error);
-      }
-    }
-  }, [position, GyroPlane]);
+    window.addEventListener("deviceorientation", handleOrientation);
+    return () => {
+      window.removeEventListener("deviceorientation", handleOrientation);
+    };
+  }, []);
 
   return (
     <section className="w-full h-full">
@@ -56,13 +52,14 @@ export default function Home() {
     return (
       <div
         style={{
+          position: "relative",
           width: "100%",
           height: "100%",
-          zIndex: -1,
         }}
         ref={WineEffectRef}
       >
         <svg
+          className="wine absolute top-0 left-0 right-0"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 100 100"
           style={{ width: "100%", height: "100%" }}
