@@ -18,7 +18,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="w-full h-full bg-white">
+    <div className="w-full h-full bg-orange-600">
       <FlowingLiquidEffect tiltX={tiltX} />
     </div>
   );
@@ -44,12 +44,15 @@ function FlowingLiquidEffect({ tiltX }: { tiltX: number }) {
         {Math.abs(tiltX) > 20 && (
           <path
             d={`
-              M${tiltX > 0 ? 300 : 0},0
+              M${tiltX > 0 ? 100 : 0},0
               Q${50 + tiltX * 1.5},10 ${tiltX > 0 ? 0 : 100},0
               Z
             `}
             fill="url(#orangeJuice)"
             opacity={Math.min(Math.abs(tiltX) * 0.02, 0.8)}
+            style={{
+              height: "100px",
+            }}
           />
         )}
 
