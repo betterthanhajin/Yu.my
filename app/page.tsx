@@ -18,7 +18,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="w-full h-full bg-orange-400">
+    <div className="w-full h-full bg-white">
       <FlowingLiquidEffect tiltX={tiltX} />
     </div>
   );
