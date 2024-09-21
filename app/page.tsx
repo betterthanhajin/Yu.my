@@ -79,7 +79,7 @@ function WineEffect({
       }}
       ref={WineEffectRef}
     >
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50">
         <defs>
           <linearGradient id="wineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop
@@ -114,14 +114,20 @@ function WineEffect({
           </filter>
         </defs>
 
-        <rect x="0" y="20" width="100" height="80" fill="url(#wineGradient)" />
+        <rect
+          x="0"
+          y="20"
+          width="100%"
+          height="100%"
+          fill="url(#wineGradient)"
+        />
 
         <g id="wave-layers">
           <rect
             x="0"
             y="20"
-            width="100"
-            height="80"
+            width="100%"
+            height="100%"
             fill="rgba(190,0,0,0.3)"
             filter="url(#waveEffect)"
           >
@@ -135,8 +141,8 @@ function WineEffect({
           <rect
             x="0"
             y="20"
-            width="100"
-            height="80"
+            width="100%"
+            height="100%"
             fill="rgba(200,0,0,0.2)"
             filter="url(#waveEffect)"
           >
@@ -150,8 +156,8 @@ function WineEffect({
           <rect
             x="0"
             y="20"
-            width="100"
-            height="80"
+            width="100%"
+            height="100%"
             fill="rgba(210,50,50,0.15)"
             filter="url(#waveEffect)"
           >
