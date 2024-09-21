@@ -18,7 +18,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="w-full h-full bg-orange-600">
+    <div className="w-full h-full bg-orange-400">
       <FlowingLiquidEffect tiltX={tiltX} />
     </div>
   );
@@ -36,8 +36,8 @@ function FlowingLiquidEffect({ tiltX }: { tiltX: number }) {
       >
         <defs>
           <linearGradient id="orangeJuice" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#FFA500" />
-            <stop offset="100%" stopColor="#FFA500" />
+            <stop offset="0%" stopColor="white" />
+            <stop offset="100%" stopColor="white" />
           </linearGradient>
         </defs>
         {/* Liquid flowing over the top */}
@@ -51,7 +51,7 @@ function FlowingLiquidEffect({ tiltX }: { tiltX: number }) {
             fill="url(#orangeJuice)"
             opacity={Math.min(Math.abs(tiltX) * 0.02, 0.8)}
             style={{
-              height: "100px",
+              height: "500px",
             }}
           />
         )}
