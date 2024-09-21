@@ -38,7 +38,7 @@ export default function Home() {
       ) {
         maxX = containerRef.current.clientWidth;
         maxY = containerRef.current.clientHeight;
-        WineEffectRef.current.style.left = `${(maxX * x) / 90 - 10}px`;
+        WineEffectRef.current.style.left = `${(maxX * x) / 180 - 10}px`;
         WineEffectRef.current.style.top = `${(maxY * y) / 180 - 10}px`;
         // alert(WineEffectRef.current.style.left);
         // alert(WineEffectRef.current.style.top);
@@ -83,6 +83,7 @@ function WineEffect({
         position: "absolute",
         top: 0,
         left: 0,
+        height: "100%",
         width: "100%",
         backgroundColor: "#a00000cc",
       }}
