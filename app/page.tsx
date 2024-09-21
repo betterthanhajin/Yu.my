@@ -20,12 +20,12 @@ export default function Home() {
       let maxX = 0;
       let maxY = 0;
 
-      if (x > 90) {
-        x = 90;
-      }
-      if (x < -90) {
-        x = -90;
-      }
+      // if (x > 90) {
+      //   x = 90;
+      // }
+      // if (x < -90) {
+      //   x = -90;
+      // }
 
       x += 90;
       y += 90;
@@ -75,7 +75,7 @@ function WineEffect({
   return (
     <div
       style={{
-        position: "absolute",
+        position: "fixed",
         bottom: 0,
         width: "100%",
         // backgroundColor: "#a00000cc",
