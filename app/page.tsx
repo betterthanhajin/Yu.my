@@ -59,7 +59,7 @@ export default function Home() {
   }
 
   return (
-    <section className="w-full h-full">
+    <section className="w-full h-full relative">
       <WineEffect WineEffectRef={WineEffectRef} />
     </section>
   );
@@ -73,14 +73,13 @@ function WineEffect({
   return (
     <div
       style={{
-        position: "relative",
+        position: "absolute",
         width: "100%",
         height: "100%",
       }}
       ref={WineEffectRef}
     >
       <svg
-        className="wine absolute top-0 left-0 right-0"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 100 100"
         style={{ width: "100%", height: "100%" }}
