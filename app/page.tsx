@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -60,7 +60,7 @@ function WineEffect({ tiltX, tiltY }: { tiltX: number; tiltY: number }) {
         height: "100%",
         width: "100%",
         overflow: "hidden",
-        backgroundColor: "#b40000b3",
+        backgroundColor: "#a00000b3",
       }}
     >
       <svg
@@ -70,7 +70,7 @@ function WineEffect({ tiltX, tiltY }: { tiltX: number; tiltY: number }) {
           width: "100%",
           height: "100%",
           transform: `rotate(${tiltX}deg)`,
-          transition: "transform 0.1s ease-out",
+          transition: "transform 0.3s ease-out",
         }}
       >
         <defs>
@@ -84,6 +84,31 @@ function WineEffect({ tiltX, tiltY }: { tiltX: number; tiltY: number }) {
               style={{ stopColor: "rgba(160,0,0,0.6)", stopOpacity: 1 }}
             />
           </linearGradient>
+
+          <filter id="turbulence">
+            <feTurbulence
+              type="turbulence"
+              baseFrequency="0.01 0.05"
+              numOctaves="2"
+              result="turbulence"
+              seed="1"
+            >
+              <animate
+                attributeName="seed"
+                from="1"
+                to="10"
+                dur="10s"
+                repeatCount="indefinite"
+              />
+            </feTurbulence>
+            <feDisplacementMap
+              in="SourceGraphic"
+              in2="turbulence"
+              scale="5"
+              xChannelSelector="R"
+              yChannelSelector="G"
+            />
+          </filter>
         </defs>
 
         <g
@@ -93,11 +118,27 @@ function WineEffect({ tiltX, tiltY }: { tiltX: number; tiltY: number }) {
           }}
         >
           <path
-            d={`M0 20 
-               Q${50 + tiltX} ${20 + tiltY * 0.5}, 100 20 
-               V100 H0 Z`}
+            d={`M-10 30 
+               Q${50 + tiltX} ${30 + tiltY * 0.5}, 110 30 
+               V110 H-10 Z`}
             fill="url(#wineGradient)"
-          />
+            filter="url(#turbulence)"
+          >
+            <animate
+              attributeName="d"
+              values={`M-10 30 Q${50 + tiltX} ${
+                30 + tiltY * 0.5
+              }, 110 30 V110 H-10 Z;
+                              M-10 35 Q${50 + tiltX} ${
+                35 + tiltY * 0.5
+              }, 110 35 V110 H-10 Z;
+                              M-10 30 Q${50 + tiltX} ${
+                30 + tiltY * 0.5
+              }, 110 30 V110 H-10 Z`}
+              dur="5s"
+              repeatCount="indefinite"
+            />
+          </path>
         </g>
 
         <g
@@ -118,6 +159,14 @@ function WineEffect({ tiltX, tiltY }: { tiltX: number; tiltY: number }) {
               <animate
                 attributeName="cy"
                 values={`100;${20 + Math.random() * 60};100`}
+                dur={`${Math.random() * 4 + 6}s`}
+                repeatCount="indefinite"
+              />
+              <animate
+                attributeName="cx"
+                values={`${Math.random() * 100};${Math.random() * 100};${
+                  Math.random() * 100
+                }`}
                 dur={`${Math.random() * 4 + 6}s`}
                 repeatCount="indefinite"
               />
