@@ -19,7 +19,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="w-full h-full bg-black">
+    <div className="w-full h-full bg-orange-400">
       <FlowingLiquidEffect tiltX={tiltX} tiltY={tiltY} />
     </div>
   );
@@ -44,7 +44,7 @@ function FlowingLiquidEffect({
         preserveAspectRatio="none"
       >
         <defs>
-          <linearGradient
+          {/* <linearGradient
             id="orangeGradient"
             x1="0%"
             y1="0%"
@@ -53,7 +53,7 @@ function FlowingLiquidEffect({
           >
             <stop offset="0%" stopColor="#FFA500" />
             <stop offset="100%" stopColor="#FF8C00" />
-          </linearGradient>
+          </linearGradient> */}
         </defs>
 
         {/* Main liquid body */}
@@ -65,7 +65,7 @@ function FlowingLiquidEffect({
             L100,100
             Z
           `}
-          fill="url(#orangeGradient)"
+          fill="orange"
         />
 
         {/* Liquid flowing over the top */}
@@ -76,14 +76,14 @@ function FlowingLiquidEffect({
               Q${50 + tiltX * 1.5},10 ${tiltX > 0 ? 0 : 100},0
               Z
             `}
-            fill="url(#orangeGradient)"
+            // fill="url(#orangeGradient)"
             opacity={Math.min(Math.abs(tiltX) * 0.02, 0.8)}
           />
         )}
       </svg>
 
       {/* Bubbles */}
-      {[...Array(10)].map((_, i) => (
+      {/* {[...Array(10)].map((_, i) => (
         <div
           key={i}
           className="absolute rounded-full bg-white opacity-50"
@@ -98,7 +98,7 @@ function FlowingLiquidEffect({
             }px)`,
           }}
         />
-      ))}
+      ))} */}
     </div>
   );
 }
