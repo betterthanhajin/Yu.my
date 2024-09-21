@@ -28,7 +28,7 @@ export default function Home() {
       //   x = -90;
       // }
 
-      x += 10;
+      x += 40;
       y += 10;
 
       if (
@@ -82,6 +82,7 @@ function WineEffect({
       style={{
         position: "absolute",
         top: 0,
+        left: 0,
         width: "100%",
         backgroundColor: "#a00000cc",
       }}
