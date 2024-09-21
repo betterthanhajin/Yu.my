@@ -33,7 +33,6 @@ function FlowingLiquidEffect({
   tiltY: number;
 }) {
   const liquidHeight = 50 - Math.abs(tiltX) * 0.5 - Math.max(0, tiltY) * 0.5;
-  const liquidLeft = 50 + tiltX * 0.8;
 
   return (
     <div className="w-full h-full overflow-hidden relative">
