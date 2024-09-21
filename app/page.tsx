@@ -74,8 +74,9 @@ function WineEffect({
     <div
       style={{
         position: "absolute",
+        bottom: 0,
         width: "100%",
-        height: "100%",
+        backgroundColor: "#a00000cc",
       }}
       ref={WineEffectRef}
     >
