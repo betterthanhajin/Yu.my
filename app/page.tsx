@@ -3,14 +3,13 @@ import React, { useEffect, useState } from "react";
 
 export default function Home() {
   const [tiltX, setTiltX] = useState(0);
-  const [tiltY, setTiltY] = useState(0);
 
   useEffect(() => {
     function handleOrientation(event: DeviceOrientationEvent) {
       const x = event.gamma ?? 0; // Left to right tilt
-      const y = event.beta ?? 0; // Front to back tilt
+      // const y = event.beta ?? 0; // Front to back tilt
       setTiltX(Math.min(Math.max(x, -45), 45));
-      setTiltY(Math.min(Math.max(y, -45), 45));
+      // setTiltY(Math.min(Math.max(y, -45), 45));
     }
 
     window.addEventListener("deviceorientation", handleOrientation);
@@ -20,18 +19,12 @@ export default function Home() {
 
   return (
     <div className="w-full h-full bg-orange-400">
-      <FlowingLiquidEffect tiltX={tiltX} tiltY={tiltY} />
+      <FlowingLiquidEffect tiltX={tiltX} />
     </div>
   );
 }
 
-function FlowingLiquidEffect({
-  tiltX,
-  tiltY,
-}: {
-  tiltX: number;
-  tiltY: number;
-}) {
+function FlowingLiquidEffect({ tiltX }: { tiltX: number }) {
   // const liquidHeight = 50 - Math.abs(tiltX) * 0.5 - Math.max(0, tiltY) * 0.5;
 
   return (
