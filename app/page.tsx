@@ -18,8 +18,10 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="w-full h-full bg-orange-400">
-      <FlowingLiquidEffect tiltX={tiltX} />
+    <div className="w-full min-h-screen bg-white pt-[100px]">
+      <div className="w-full h-[calc(100vh-100px)]">
+        <FlowingLiquidEffect tiltX={tiltX} />
+      </div>
     </div>
   );
 }
