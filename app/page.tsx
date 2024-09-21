@@ -19,19 +19,23 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="w-full h-full bg-gray-800">
-      <LiquidInCupEffect tiltX={tiltX} tiltY={tiltY} />
+    <div className="w-full h-full bg-black">
+      <PhoneLiquidEffect tiltX={tiltX} tiltY={tiltY} />
     </div>
   );
 }
 
-function LiquidInCupEffect({ tiltX, tiltY }: { tiltX: number; tiltY: number }) {
-  const liquidHeight = 70 - (Math.abs(tiltX) + Math.abs(tiltY)) * 0.2;
-  const liquidRotation = tiltX * 0.5;
+function PhoneLiquidEffect({ tiltX, tiltY }: { tiltX: number; tiltY: number }) {
+  const adjustedTiltY = tiltY * -1; // Invert Y-axis for more intuitive movement
 
   return (
-    <div className="w-full h-full flex items-center justify-center">
-      <svg width="300" height="400" viewBox="0 0 300 400">
+    <div className="w-full h-full overflow-hidden">
+      <svg
+        width="100%"
+        height="100%"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+      >
         <defs>
           <linearGradient
             id="liquidGradient"
@@ -49,69 +53,79 @@ function LiquidInCupEffect({ tiltX, tiltY }: { tiltX: number; tiltY: number }) {
             <feTurbulence
               type="turbulence"
               baseFrequency="0.01 0.05"
-              numOctaves="2"
+              numOctaves="3"
               seed="1"
             >
               <animate
                 attributeName="baseFrequency"
                 dur="10s"
-                values="0.01 0.05;0.02 0.1;0.01 0.05"
+                values="0.01 0.05;0.02 0.07;0.01 0.05"
                 repeatCount="indefinite"
               />
             </feTurbulence>
             <feDisplacementMap in="SourceGraphic" scale="5" />
           </filter>
-
-          <clipPath id="cupClip">
-            <path d="M50,100 L70,350 C70,380 230,380 230,350 L250,100 Z" />
-          </clipPath>
         </defs>
 
-        {/* Cup */}
-        <path
-          d="M50,100 L70,350 C70,380 230,380 230,350 L250,100 Z"
-          fill="none"
-          stroke="white"
-          strokeWidth="5"
-        />
-
         {/* Liquid */}
-        <g clipPath="url(#cupClip)">
-          <rect
-            x="0"
-            y={400 - liquidHeight + "%"}
-            width="300"
-            height={liquidHeight + "%"}
+        <g filter="url(#liquidTurbulence)">
+          <path
+            d={`
+              M0,100
+              C${25 + tiltX * 0.5},${90 + adjustedTiltY * 0.5}
+               ${75 - tiltX * 0.5},${90 + adjustedTiltY * 0.5}
+               100,100
+              V100 H0 Z
+            `}
             fill="url(#liquidGradient)"
-            filter="url(#liquidTurbulence)"
-            transform={`rotate(${liquidRotation} 150 ${
-              400 - liquidHeight / 2
-            })`}
           >
             <animate
-              attributeName="y"
-              values={`${400 - liquidHeight}%;${405 - liquidHeight}%;${
-                400 - liquidHeight
-              }%`}
+              attributeName="d"
               dur="3s"
               repeatCount="indefinite"
+              values={`
+                M0,100
+                C${25 + tiltX * 0.5},${90 + adjustedTiltY * 0.5}
+                 ${75 - tiltX * 0.5},${90 + adjustedTiltY * 0.5}
+                 100,100
+                V100 H0 Z;
+                
+                M0,100
+                C${25 + tiltX * 0.5},${92 + adjustedTiltY * 0.5}
+                 ${75 - tiltX * 0.5},${92 + adjustedTiltY * 0.5}
+                 100,100
+                V100 H0 Z;
+                
+                M0,100
+                C${25 + tiltX * 0.5},${90 + adjustedTiltY * 0.5}
+                 ${75 - tiltX * 0.5},${90 + adjustedTiltY * 0.5}
+                 100,100
+                V100 H0 Z;
+              `}
             />
-          </rect>
+          </path>
         </g>
 
         {/* Bubbles */}
-        {[...Array(10)].map((_, i) => (
+        {[...Array(15)].map((_, i) => (
           <circle
             key={i}
-            cx={75 + Math.random() * 150}
-            cy="350"
-            r={1 + Math.random() * 2}
+            cx={Math.random() * 100}
+            cy={100 + Math.random() * 10}
+            r={0.5 + Math.random() * 1}
             fill="rgba(255,255,255,0.5)"
           >
             <animate
               attributeName="cy"
-              from="350"
-              to={400 - liquidHeight + 20}
+              from={100 + Math.random() * 10}
+              to={80 + adjustedTiltY * 0.5}
+              dur={`${3 + Math.random() * 2}s`}
+              repeatCount="indefinite"
+            />
+            <animate
+              attributeName="cx"
+              from={Math.random() * 100}
+              to={Math.random() * 100 + tiltX * 0.2}
               dur={`${3 + Math.random() * 2}s`}
               repeatCount="indefinite"
             />
