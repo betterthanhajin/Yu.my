@@ -1,48 +1,39 @@
-"use client";
 import { useEffect, useRef, useState } from "react";
 
 export default function Home() {
-  const WineEffectRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [isOrientationSupported, setIsOrientationSupported] = useState(true);
+  const [tiltX, setTiltX] = useState(0);
+  const [tiltY, setTiltY] = useState(0);
 
   useEffect(() => {
     let orientationHandler: ((event: DeviceOrientationEvent) => void) | null =
       null;
 
     function requestOrientationPermission() {
-      window.addEventListener("deviceorientation", handleOrientation);
+      if (
+        typeof DeviceOrientationEvent !== "undefined" &&
+        typeof (DeviceOrientationEvent as any).requestPermission === "function"
+      ) {
+        (DeviceOrientationEvent as any)
+          .requestPermission()
+          .then((permissionState: string) => {
+            if (permissionState === "granted") {
+              window.addEventListener("deviceorientation", handleOrientation);
+            }
+          })
+          .catch(console.error);
+      } else {
+        window.addEventListener("deviceorientation", handleOrientation);
+      }
     }
 
     function handleOrientation(event: DeviceOrientationEvent) {
-      let x = event.beta ?? 0;
-      let y = event.gamma ?? 0;
+      const x = event.beta ?? 0;
+      const y = event.gamma ?? 0;
 
-      let maxX = 0;
-      let maxY = 0;
-
-      // if (x > 90) {
-      //   x = 90;
-      // }
-      // if (x < -90) {
-      //   x = -90;
-      // }
-
-      x += 40;
-      y += 10;
-
-      if (
-        WineEffectRef.current &&
-        typeof window !== "undefined" &&
-        containerRef.current
-      ) {
-        maxX = containerRef.current.clientWidth;
-        maxY = containerRef.current.clientHeight;
-        WineEffectRef.current.style.left = `${(maxX * x) / 180 - 10}px`;
-        WineEffectRef.current.style.top = `${(maxY * y) / 180 - 10}px`;
-        // alert(WineEffectRef.current.style.left);
-        // alert(WineEffectRef.current.style.top);
-      }
+      setTiltX(Math.min(Math.max(y, -45), 45));
+      setTiltY(Math.min(Math.max(x, -45), 45));
     }
 
     orientationHandler = handleOrientation;
@@ -50,7 +41,7 @@ export default function Home() {
     if (typeof window !== "undefined" && "DeviceOrientationEvent" in window) {
       requestOrientationPermission();
     } else {
-      alert("Device orientation not supported");
+      console.log("Device orientation not supported");
       setIsOrientationSupported(false);
     }
 
@@ -67,16 +58,12 @@ export default function Home() {
 
   return (
     <section className="w-full h-full relative" ref={containerRef}>
-      <WineEffect WineEffectRef={WineEffectRef} />
+      <WineEffect tiltX={tiltX} tiltY={tiltY} />
     </section>
   );
 }
 
-function WineEffect({
-  WineEffectRef,
-}: {
-  WineEffectRef: React.RefObject<HTMLDivElement>;
-}) {
+function WineEffect({ tiltX, tiltY }: { tiltX: number; tiltY: number }) {
   return (
     <div
       style={{
@@ -85,26 +72,28 @@ function WineEffect({
         left: 0,
         height: "100%",
         width: "100%",
-        backgroundColor: "#a00000cc",
+        overflow: "hidden",
       }}
-      ref={WineEffectRef}
     >
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 80">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 100 100"
+        style={{
+          width: "100%",
+          height: "100%",
+          transform: `rotate(${tiltX}deg)`,
+          transition: "transform 0.1s ease-out",
+        }}
+      >
         <defs>
           <linearGradient id="wineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop
               offset="0%"
-              style={{
-                stopColor: "rgba(180,0,0,0.7)",
-                stopOpacity: 1,
-              }}
+              style={{ stopColor: "rgba(180,0,0,0.7)", stopOpacity: 1 }}
             />
             <stop
               offset="100%"
-              style={{
-                stopColor: "rgba(160,0,0,0.6)",
-                stopOpacity: 1,
-              }}
+              style={{ stopColor: "rgba(160,0,0,0.6)", stopOpacity: 1 }}
             />
           </linearGradient>
           <filter id="waveEffect">
@@ -132,7 +121,13 @@ function WineEffect({
           fill="url(#wineGradient)"
         />
 
-        <g id="wave-layers">
+        <g
+          id="wave-layers"
+          style={{
+            transform: `translateY(${tiltY * 0.2}px)`,
+            transition: "transform 0.1s ease-out",
+          }}
+        >
           <rect
             x="0"
             y="20"
@@ -180,7 +175,13 @@ function WineEffect({
           </rect>
         </g>
 
-        <g id="bubbles">
+        <g
+          id="bubbles"
+          style={{
+            transform: `translate(${tiltX * 0.2}px, ${tiltY * 0.2}px)`,
+            transition: "transform 0.1s ease-out",
+          }}
+        >
           <circle cx="5" cy="100" r="0.3" fill="rgba(255,255,255,0.5)">
             <animate
               attributeName="cy"
