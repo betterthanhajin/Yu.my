@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 
 export default function Home() {
   const WineEffectRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isOrientationSupported, setIsOrientationSupported] = useState(true);
 
   useEffect(() => {
@@ -28,11 +29,15 @@ export default function Home() {
       // }
 
       x += 90;
-      y += 90;
+      y += 150;
 
-      if (WineEffectRef.current && typeof window !== "undefined") {
-        maxX = window.outerWidth;
-        maxY = window.outerHeight;
+      if (
+        WineEffectRef.current &&
+        typeof window !== "undefined" &&
+        containerRef.current
+      ) {
+        maxX = containerRef.current.clientWidth;
+        maxY = containerRef.current.clientHeight;
         WineEffectRef.current.style.left = `${(maxX * x) / 180 - 10}px`;
         WineEffectRef.current.style.top = `${(maxY * y) / 180 - 10}px`;
         // alert(WineEffectRef.current.style.left);
@@ -61,7 +66,7 @@ export default function Home() {
   }
 
   return (
-    <section className="w-full h-full relative">
+    <section className="w-full h-full relative" ref={containerRef}>
       <WineEffect WineEffectRef={WineEffectRef} />
     </section>
   );
@@ -75,7 +80,7 @@ function WineEffect({
   return (
     <div
       style={{
-        position: "fixed",
+        position: "absolute",
         bottom: 0,
         width: "100%",
         // backgroundColor: "#a00000cc",
