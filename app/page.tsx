@@ -9,10 +9,6 @@ export default function Home() {
     let y = event.gamma ? event.gamma : 0;
     let maxX = 0;
     let maxY = 0;
-    if (WineEffectRef.current && typeof window !== "undefined") {
-      maxX = window.innerWidth - WineEffectRef.current.clientWidth;
-      maxY = window.innerHeight - WineEffectRef.current.clientHeight;
-    }
 
     if (x > 90) {
       x = 90;
@@ -24,13 +20,11 @@ export default function Home() {
     x += 90;
     y += 90;
 
-    if (WineEffectRef.current) {
+    if (WineEffectRef.current && typeof window !== "undefined") {
+      maxX = window.innerWidth - WineEffectRef.current.clientWidth;
+      maxY = window.innerHeight - WineEffectRef.current.clientHeight;
       WineEffectRef.current.style.left = `${(maxY * y) / 180 - 10}px`;
       WineEffectRef.current.style.top = `${(maxX * x) / 180 - 10}px`;
-      console.log(
-        WineEffectRef.current.style.left,
-        WineEffectRef.current.style.top
-      );
     }
   }
 
