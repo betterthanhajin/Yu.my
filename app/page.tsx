@@ -12,21 +12,7 @@ export default function Home() {
       null;
 
     function requestOrientationPermission() {
-      if (
-        typeof DeviceOrientationEvent !== "undefined" &&
-        typeof (DeviceOrientationEvent as any).requestPermission === "function"
-      ) {
-        (DeviceOrientationEvent as any)
-          .requestPermission()
-          .then((permissionState: string) => {
-            if (permissionState === "granted") {
-              window.addEventListener("deviceorientation", handleOrientation);
-            }
-          })
-          .catch(console.error);
-      } else {
-        window.addEventListener("deviceorientation", handleOrientation);
-      }
+      window.addEventListener("deviceorientation", handleOrientation);
     }
 
     function handleOrientation(event: DeviceOrientationEvent) {
