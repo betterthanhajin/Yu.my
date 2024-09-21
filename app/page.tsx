@@ -79,22 +79,22 @@ function WineEffect({ tiltX, tiltY }: { tiltX: number; tiltY: number }) {
               offset="0%"
               style={{ stopColor: "rgba(180,0,0,0.7)", stopOpacity: 1 }}
             />
-            <stop
+            {/* <stop
               offset="100%"
               style={{ stopColor: "rgba(160,0,0,0.6)", stopOpacity: 1 }}
-            />
+            /> */}
           </linearGradient>
           <filter id="waveEffect">
             <feTurbulence
               type="fractalNoise"
               baseFrequency="0.01"
-              numOctaves="10"
+              numOctaves="5"
               result="turbulence"
             />
             <feDisplacementMap
               in="SourceGraphic"
               in2="turbulence"
-              scale="35"
+              scale="15"
               xChannelSelector="R"
               yChannelSelector="G"
             />
