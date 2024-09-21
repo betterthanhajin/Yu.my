@@ -7,6 +7,7 @@ export default function Home() {
   function handleOrientation(event: DeviceOrientationEvent) {
     let x = event.beta ? event.beta : 0;
     let y = event.gamma ? event.gamma : 0;
+    console.log(event.beta, event.gamma);
     let maxX = 0;
     let maxY = 0;
 
@@ -33,7 +34,7 @@ export default function Home() {
     return () => {
       window.removeEventListener("deviceorientation", handleOrientation);
     };
-  }, []);
+  }, [handleOrientation]);
 
   return (
     <section className="w-full h-full">
