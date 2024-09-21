@@ -13,32 +13,38 @@ export default function Home() {
         width: width,
         height: height,
       });
+      console.log({ width, height });
     }
   }, []);
 
   useEffect(() => {
     if (position.width > 0 && position.height > 0) {
       try {
+        let width = 0;
+        let height = 0;
         const distance = position.width * 2;
+        if (window !== undefined) {
+          width = window.innerWidth;
+          height = window.innerHeight;
+        }
         const gyro = new GyroPlane({
-          width: position.width,
-          height: position.height,
+          width: width,
+          height: height,
           distance: distance,
         });
         const coordinates = gyro.getScreenCoordinates();
-
-        // Add some small random values to avoid linear dependency
-        const randomOffset = 0.01;
-        const alpha = coordinates.x + (Math.random() - 0.5) * randomOffset;
-        const beta = coordinates.y + (Math.random() - 0.5) * randomOffset;
+        // const randomOffset = 0.01;
+        const alpha = coordinates.x;
+        // + (Math.random() - 0.5) * randomOffset;
+        const beta = coordinates.y;
+        // + (Math.random() - 0.5) * randomOffset;
         console.log({ alpha, beta });
         gyro.updateOrientation({ alpha, beta });
       } catch (error) {
         console.error("Error initializing GyroPlane:", error);
-        // Handle the error appropriately (e.g., show a message to the user)
       }
     }
-  }, [position]);
+  }, [position, GyroPlane]);
 
   return (
     <section className="w-full h-full">
