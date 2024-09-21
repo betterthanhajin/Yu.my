@@ -16,8 +16,7 @@ export default function Home() {
     function handleOrientation(event: DeviceOrientationEvent) {
       let x = event.beta ?? 0;
       let y = event.gamma ?? 0;
-      alert(x);
-      alert(y);
+
       let maxX = 0;
       let maxY = 0;
 
@@ -32,10 +31,14 @@ export default function Home() {
       y += 90;
 
       if (WineEffectRef.current && typeof window !== "undefined") {
-        maxX = window.innerWidth - WineEffectRef.current.clientWidth;
-        maxY = window.innerHeight - WineEffectRef.current.clientHeight;
+        maxX = WineEffectRef.current.clientWidth;
+        maxY = WineEffectRef.current.clientHeight;
+        alert(maxX);
+        alert(maxY);
         WineEffectRef.current.style.left = `${(maxY * y) / 180 - 10}px`;
         WineEffectRef.current.style.top = `${(maxX * x) / 180 - 10}px`;
+        alert(WineEffectRef.current.style.left);
+        alert(WineEffectRef.current.style.top);
       }
     }
 
