@@ -36,8 +36,8 @@ function FlowingLiquidEffect({ tiltX }: { tiltX: number }) {
       >
         <defs>
           <linearGradient id="orangeJuice" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="transparent" />
-            <stop offset="100%" stopColor="transparent" />
+            <stop offset="0%" stopColor="#FFA500" />
+            <stop offset="100%" stopColor="#FFA500" />
           </linearGradient>
           <filter id="turbulence">
             <feTurbulence
