@@ -10,30 +10,13 @@ export default function Home() {
       null;
 
     function requestOrientationPermission() {
-      if (
-        typeof (DeviceOrientationEvent as any).requestPermission === "function"
-      ) {
-        (DeviceOrientationEvent as any)
-          .requestPermission()
-          .then((permissionState: string) => {
-            if (permissionState === "granted") {
-              window.addEventListener("deviceorientation", handleOrientation);
-            } else {
-              console.log("Permission denied");
-              setIsOrientationSupported(false);
-            }
-          })
-          .catch(console.error);
-      } else {
-        // Handle regular non iOS 13+ devices
-        window.addEventListener("deviceorientation", handleOrientation);
-      }
+      window.addEventListener("deviceorientation", handleOrientation);
     }
 
     function handleOrientation(event: DeviceOrientationEvent) {
       alert("Device orientation supported");
-      let x = event.beta ? event.beta : 0;
-      let y = event.gamma ? event.gamma : 0;
+      let x = event.beta ?? 0;
+      let y = event.gamma ?? 0;
       console.log(event.beta, event.gamma);
       let maxX = 0;
       let maxY = 0;
