@@ -44,30 +44,11 @@ function FlowingLiquidEffect({
         preserveAspectRatio="none"
       >
         <defs>
-          {/* <linearGradient
-            id="orangeGradient"
-            x1="0%"
-            y1="0%"
-            x2="100%"
-            y2="100%"
-          >
+          <linearGradient id="orangeJuice" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#FFA500" />
             <stop offset="100%" stopColor="#FF8C00" />
-          </linearGradient> */}
+          </linearGradient>
         </defs>
-
-        {/* Main liquid body */}
-        <path
-          d={`
-            M0,100
-            L0,${100 - liquidHeight}
-            Q${liquidLeft},${95 - liquidHeight} 100,${100 - liquidHeight}
-            L100,100
-            Z
-          `}
-          fill="orange"
-        />
-
         {/* Liquid flowing over the top */}
         {Math.abs(tiltX) > 20 && (
           <path
@@ -76,29 +57,43 @@ function FlowingLiquidEffect({
               Q${50 + tiltX * 1.5},10 ${tiltX > 0 ? 0 : 100},0
               Z
             `}
-            // fill="url(#orangeGradient)"
+            fill="url(#orangeJuice)"
             opacity={Math.min(Math.abs(tiltX) * 0.02, 0.8)}
           />
         )}
       </svg>
 
       {/* Bubbles */}
-      {/* {[...Array(10)].map((_, i) => (
+      {[...Array(20)].map((_, i) => (
         <div
           key={i}
-          className="absolute rounded-full bg-white opacity-50"
+          className="absolute rounded-full bg-white"
           style={{
-            width: `${Math.random() * 4 + 2}px`,
-            height: `${Math.random() * 4 + 2}px`,
+            width: `${Math.random() * 6 + 2}px`,
+            height: `${Math.random() * 6 + 2}px`,
             left: `${Math.random() * 100}%`,
             top: `${100 - liquidHeight + Math.random() * liquidHeight}%`,
+            opacity: Math.random() * 0.5 + 0.1,
             transition: "all 0.5s ease-out",
             transform: `translate(${tiltX * 0.2}px, ${
-              -Math.abs(tiltX) * 0.5
+              -Math.abs(tiltX) * 0.5 - Math.random() * 10
             }px)`,
+            animation: `rise ${Math.random() * 3 + 2}s linear infinite`,
           }}
         />
-      ))} */}
+      ))}
+      <style jsx>{`
+        @keyframes rise {
+          0% {
+            transform: translateY(0) scale(1);
+            opacity: 0.7;
+          }
+          100% {
+            transform: translateY(-100px) scale(1.5);
+            opacity: 0;
+          }
+        }
+      `}</style>
     </div>
   );
 }
