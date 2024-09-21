@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🍹 Yummy: 마시는 착시의 즐거움
 
-## Getting Started
+Yummy에 오신 것을 환영합니다! 당신의 스마트폰을 favorite drink로 바꿔보세요.
+기울이기만 해도 실제로 마시는 것 같은 착시 효과를 즐겨보세요!
 
-First, run the development server:
+## 🌟 주요 기능
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- 핸드폰 기울기에 반응하는 생동감 있는 액체 효과
+- 다양한 음료 선택 가능 (커피, 주스, 칵테일 등) -> 예정
+- 실제 마시는 듯한 착시 효과
+- 모바일 지원
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 시작하기
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. 저장소를 클론합니다:
+   ```
+   git clone https://github.com/yourusername/yummy.git
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+2. 프로젝트 폴더로 이동:
+   ```
+   cd yummy
+   ```
 
-## Learn More
+3. 의존성 설치:
+   ```
+   npm install
+   ```
 
-To learn more about Next.js, take a look at the following resources:
+4. 개발 서버 실행:
+   ```
+   npm run dev
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5. 브라우저에서 `http://localhost:3000`을 열고 즐기세요!
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📱 사용 방법
 
-## Deploy on Vercel
+1. 모바일 기기에서 Yummy를 엽니다.
+2. 원하는 음료를 선택합니다.
+3. 기기를 기울여 "마시는" 경험을 즐깁니다.
+4. 다양한 각도로 기울여보며 액체의 움직임을 관찰해보세요!
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 🛠 기술 스택
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Next.js
+- React
+- TypeScript
+- SVG 애니메이션
+- 디바이스 방향 센서 API
+
+## 📜 라이선스
+
+이 프로젝트는 MIT 라이선스 하에 있습니다. 자세한 내용은 [LICENSE](LICENSE) 파일을 참조하세요.
+
+## 🥤 Yummy Time!
+
+Yummy와 함께 언제 어디서나 당신의 최애 음료를 즐기세요. 
+실제로 마시는 것보다 칼로리 걱정 없이 마음껏 즐길 수 있답니다!
+
+---
+
+Made with 💦 by [Hajin]
+
+# 주의사항
+Yummy는 재미를 위한 앱입니다. 실제 수분 섭취를 대신할 수 없습니다. 
+건강을 위해 적절한 수분 섭취를 잊지 마세요!
