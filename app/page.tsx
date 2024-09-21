@@ -33,12 +33,8 @@ export default function Home() {
       if (WineEffectRef.current && typeof window !== "undefined") {
         maxX = WineEffectRef.current.clientWidth;
         maxY = WineEffectRef.current.clientHeight;
-        alert(maxX);
-        alert(maxY);
-        WineEffectRef.current.style.left = `${(maxY * y) / 180 - 10}px`;
-        WineEffectRef.current.style.top = `${(maxX * x) / 180 - 10}px`;
-        alert(WineEffectRef.current.style.left);
-        alert(WineEffectRef.current.style.top);
+        WineEffectRef.current.style.left = `${(maxY * x) / 180 - 10}px`;
+        WineEffectRef.current.style.top = `${(maxX * y) / 180 - 10}px`;
       }
     }
 
