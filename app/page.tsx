@@ -44,8 +44,8 @@ function FlowingLiquidEffect({ tiltX }: { tiltX: number }) {
         {Math.abs(tiltX) > 20 && (
           <path
             d={`
-              M${tiltX > 0 ? 100 : 0},0
-              Q${50 + tiltX * 1.5},10 ${tiltX > 0 ? 0 : 100},0
+              M${tiltX > 0 ? 300 : 0},0
+              Q${50 + tiltX * 1.5},10 ${tiltX > 0 ? 100 : 0},0
               Z
             `}
             fill="url(#orangeJuice)"
