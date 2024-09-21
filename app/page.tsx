@@ -15,10 +15,10 @@ export default function Home() {
     }
 
     function handleOrientation(event: DeviceOrientationEvent) {
-      // let x = event.beta ?? 0;
+      let x = event.beta ?? 0;
       let y = event.gamma ?? 0;
 
-      // let maxX = 0;
+      let maxX = 0;
       let maxY = 0;
 
       // if (x > 90) {
@@ -28,7 +28,7 @@ export default function Home() {
       //   x = -90;
       // }
 
-      // x += 120;
+      x += 10;
       y += 10;
 
       if (
@@ -36,9 +36,9 @@ export default function Home() {
         typeof window !== "undefined" &&
         containerRef.current
       ) {
-        // maxX = containerRef.current.clientWidth;
+        maxX = containerRef.current.clientWidth;
         maxY = containerRef.current.clientHeight;
-        // WineEffectRef.current.style.left = `${(maxX * x) / 180 - 10}px`;
+        WineEffectRef.current.style.left = `${(maxX * x) / 180 - 10}px`;
         WineEffectRef.current.style.top = `${(maxY * y) / 180 - 10}px`;
         // alert(WineEffectRef.current.style.left);
         // alert(WineEffectRef.current.style.top);
@@ -83,7 +83,7 @@ function WineEffect({
         position: "absolute",
         top: 0,
         width: "100%",
-        // backgroundColor: "#a00000cc",
+        backgroundColor: "#a00000cc",
       }}
       ref={WineEffectRef}
     >
