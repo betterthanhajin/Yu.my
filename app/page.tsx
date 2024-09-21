@@ -60,6 +60,7 @@ function WineEffect({ tiltX, tiltY }: { tiltX: number; tiltY: number }) {
         height: "100%",
         width: "100%",
         overflow: "hidden",
+        backgroundColor: "#a00000b3",
       }}
     >
       <svg
@@ -87,13 +88,13 @@ function WineEffect({ tiltX, tiltY }: { tiltX: number; tiltY: number }) {
             <feTurbulence
               type="fractalNoise"
               baseFrequency="0.01"
-              numOctaves="3"
+              numOctaves="10"
               result="turbulence"
             />
             <feDisplacementMap
               in="SourceGraphic"
               in2="turbulence"
-              scale="15"
+              scale="35"
               xChannelSelector="R"
               yChannelSelector="G"
             />
@@ -111,7 +112,7 @@ function WineEffect({ tiltX, tiltY }: { tiltX: number; tiltY: number }) {
         <g
           id="wave-layers"
           style={{
-            transform: `translateY(${tiltY * 0.2}px)`,
+            transform: `translateY(${tiltY * 10}px)`,
             transition: "transform 0.1s ease-out",
           }}
         >
