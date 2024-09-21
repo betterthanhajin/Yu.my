@@ -1,6 +1,5 @@
 "use client";
-import { GyroPlane } from "gyro-plane";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 export default function Home() {
   const WineEffectRef = useRef<HTMLDivElement>(null);
