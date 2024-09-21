@@ -19,110 +19,100 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="w-full h-full">
-      <WaterEffect tiltX={tiltX} tiltY={tiltY} />
+    <div className="w-full h-full bg-gray-800">
+      <LiquidInCupEffect tiltX={tiltX} tiltY={tiltY} />
     </div>
   );
 }
 
-function WaterEffect({ tiltX, tiltY }: { tiltX: number; tiltY: number }) {
+function LiquidInCupEffect({ tiltX, tiltY }: { tiltX: number; tiltY: number }) {
+  const liquidHeight = 70 - (Math.abs(tiltX) + Math.abs(tiltY)) * 0.2;
+  const liquidRotation = tiltX * 0.5;
+
   return (
-    <div
-      style={{
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        overflow: "hidden",
-        backgroundColor: "#4B0082", // Indigo background
-      }}
-    >
-      <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+    <div className="w-full h-full flex items-center justify-center">
+      <svg width="300" height="400" viewBox="0 0 300 400">
         <defs>
           <linearGradient
-            id="waterGradient"
+            id="liquidGradient"
             x1="0%"
             y1="0%"
             x2="100%"
             y2="100%"
           >
-            <stop offset="0%" stopColor="#4169E1" /> {/* Royal Blue */}
-            <stop offset="50%" stopColor="#8A2BE2" /> {/* Blue Violet */}
-            <stop offset="100%" stopColor="#4169E1" /> {/* Royal Blue */}
+            <stop offset="0%" stopColor="#4169E1" />
+            <stop offset="50%" stopColor="#8A2BE2" />
+            <stop offset="100%" stopColor="#4169E1" />
           </linearGradient>
 
-          <filter id="turbulence">
+          <filter id="liquidTurbulence">
             <feTurbulence
               type="turbulence"
-              baseFrequency="0.01 0.01"
-              numOctaves="3"
+              baseFrequency="0.01 0.05"
+              numOctaves="2"
               seed="1"
-              stitchTiles="stitch"
             >
               <animate
                 attributeName="baseFrequency"
-                dur="30s"
-                values="0.01 0.01;0.02 0.02;0.01 0.01"
+                dur="10s"
+                values="0.01 0.05;0.02 0.1;0.01 0.05"
                 repeatCount="indefinite"
               />
             </feTurbulence>
-            <feDisplacementMap in="SourceGraphic" scale="20" />
+            <feDisplacementMap in="SourceGraphic" scale="5" />
           </filter>
 
-          <mask id="liquidMask">
-            <rect x="0" y="0" width="100%" height="100%" fill="white" />
-            <path d={`M0,50 Q50,${50 + tiltY} 100,50 V100 H0 Z`} fill="black">
-              <animate
-                attributeName="d"
-                dur="5s"
-                repeatCount="indefinite"
-                values={`
-                  M0,50 Q50,${50 + tiltY} 100,50 V100 H0 Z;
-                  M0,55 Q50,${55 + tiltY} 100,55 V100 H0 Z;
-                  M0,50 Q50,${50 + tiltY} 100,50 V100 H0 Z
-                `}
-              />
-            </path>
-          </mask>
+          <clipPath id="cupClip">
+            <path d="M50,100 L70,350 C70,380 230,380 230,350 L250,100 Z" />
+          </clipPath>
         </defs>
 
-        <g
-          style={{
-            transform: `rotate(${tiltX * 0.2}deg)`,
-            transformOrigin: "center",
-            transition: "transform 0.3s ease-out",
-          }}
-        >
+        {/* Cup */}
+        <path
+          d="M50,100 L70,350 C70,380 230,380 230,350 L250,100 Z"
+          fill="none"
+          stroke="white"
+          strokeWidth="5"
+        />
+
+        {/* Liquid */}
+        <g clipPath="url(#cupClip)">
           <rect
-            x="-10%"
-            y="-10%"
-            width="120%"
-            height="120%"
-            fill="url(#waterGradient)"
-            filter="url(#turbulence)"
-            mask="url(#liquidMask)"
-          />
+            x="0"
+            y={400 - liquidHeight + "%"}
+            width="300"
+            height={liquidHeight + "%"}
+            fill="url(#liquidGradient)"
+            filter="url(#liquidTurbulence)"
+            transform={`rotate(${liquidRotation} 150 ${
+              400 - liquidHeight / 2
+            })`}
+          >
+            <animate
+              attributeName="y"
+              values={`${400 - liquidHeight}%;${405 - liquidHeight}%;${
+                400 - liquidHeight
+              }%`}
+              dur="3s"
+              repeatCount="indefinite"
+            />
+          </rect>
         </g>
 
-        {[...Array(30)].map((_, i) => (
+        {/* Bubbles */}
+        {[...Array(10)].map((_, i) => (
           <circle
             key={i}
-            cx={`${Math.random() * 100}%`}
-            cy={`${Math.random() * 100}%`}
-            r="1"
+            cx={75 + Math.random() * 150}
+            cy="350"
+            r={1 + Math.random() * 2}
             fill="rgba(255,255,255,0.5)"
           >
             <animate
               attributeName="cy"
-              values={`${100 + Math.random() * 10}%;-10%`}
-              dur={`${Math.random() * 4 + 6}s`}
-              repeatCount="indefinite"
-            />
-            <animate
-              attributeName="cx"
-              values={`${Math.random() * 100}%;${Math.random() * 100}%`}
-              dur={`${Math.random() * 10 + 10}s`}
+              from="350"
+              to={400 - liquidHeight + 20}
+              dur={`${3 + Math.random() * 2}s`}
               repeatCount="indefinite"
             />
           </circle>
