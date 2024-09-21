@@ -18,17 +18,18 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="w-full h-full bg-orange-400">
-      <FlowingLiquidEffect tiltX={tiltX} />
+    <div className="w-full h-full bg-orange-400 p-4">
+      <div className="w-full h-full pt-8">
+        <FlowingLiquidEffect tiltX={tiltX} />
+      </div>
     </div>
   );
 }
 
 function FlowingLiquidEffect({ tiltX }: { tiltX: number }) {
   // const liquidHeight = 50 - Math.abs(tiltX) * 0.5 - Math.max(0, tiltY) * 0.5;
-
   return (
-    <div className="w-full h-[500px] overflow-hidden relative">
+    <div className="w-full h-full overflow-hidden relative">
       <svg
         width="100%"
         height="100%"
@@ -38,7 +39,7 @@ function FlowingLiquidEffect({ tiltX }: { tiltX: number }) {
         <defs>
           <linearGradient id="orangeJuice" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#FFA500" />
-            <stop offset="100%" stopColor="#FF8C00" />
+            <stop offset="100%" stopColor="#FFA500" />
           </linearGradient>
         </defs>
         {/* Liquid flowing over the top */}
