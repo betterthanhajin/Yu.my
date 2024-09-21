@@ -35,11 +35,23 @@ function WaterEffect({ tiltX, tiltY }: { tiltX: number; tiltY: number }) {
         width: "100%",
         height: "100%",
         overflow: "hidden",
-        backgroundColor: "#a00000",
+        backgroundColor: "#4B0082", // Indigo background
       }}
     >
       <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
         <defs>
+          <linearGradient
+            id="waterGradient"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+          >
+            <stop offset="0%" stopColor="#4169E1" /> {/* Royal Blue */}
+            <stop offset="50%" stopColor="#8A2BE2" /> {/* Blue Violet */}
+            <stop offset="100%" stopColor="#4169E1" /> {/* Royal Blue */}
+          </linearGradient>
+
           <filter id="turbulence">
             <feTurbulence
               type="turbulence"
@@ -50,7 +62,7 @@ function WaterEffect({ tiltX, tiltY }: { tiltX: number; tiltY: number }) {
             >
               <animate
                 attributeName="baseFrequency"
-                dur="60s"
+                dur="30s"
                 values="0.01 0.01;0.02 0.02;0.01 0.01"
                 repeatCount="indefinite"
               />
@@ -58,34 +70,47 @@ function WaterEffect({ tiltX, tiltY }: { tiltX: number; tiltY: number }) {
             <feDisplacementMap in="SourceGraphic" scale="20" />
           </filter>
 
-          <radialGradient id="waterGradient">
-            <stop offset="0%" stopColor="#ff0000" />
-            <stop offset="100%" stopColor="#990000" />
-          </radialGradient>
+          <mask id="liquidMask">
+            <rect x="0" y="0" width="100%" height="100%" fill="white" />
+            <path d={`M0,50 Q50,${50 + tiltY} 100,50 V100 H0 Z`} fill="black">
+              <animate
+                attributeName="d"
+                dur="5s"
+                repeatCount="indefinite"
+                values={`
+                  M0,50 Q50,${50 + tiltY} 100,50 V100 H0 Z;
+                  M0,55 Q50,${55 + tiltY} 100,55 V100 H0 Z;
+                  M0,50 Q50,${50 + tiltY} 100,50 V100 H0 Z
+                `}
+              />
+            </path>
+          </mask>
         </defs>
 
         <g
           style={{
-            transform: `translate(${tiltX * 0.5}px, ${tiltY * 0.5}px)`,
+            transform: `rotate(${tiltX * 0.2}deg)`,
+            transformOrigin: "center",
             transition: "transform 0.3s ease-out",
           }}
         >
           <rect
-            x="0"
-            y="0"
-            width="100%"
-            height="100%"
+            x="-10%"
+            y="-10%"
+            width="120%"
+            height="120%"
             fill="url(#waterGradient)"
             filter="url(#turbulence)"
+            mask="url(#liquidMask)"
           />
         </g>
 
-        {[...Array(20)].map((_, i) => (
+        {[...Array(30)].map((_, i) => (
           <circle
             key={i}
             cx={`${Math.random() * 100}%`}
             cy={`${Math.random() * 100}%`}
-            r="2"
+            r="1"
             fill="rgba(255,255,255,0.5)"
           >
             <animate
