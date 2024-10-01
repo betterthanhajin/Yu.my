@@ -18,8 +18,8 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="w-full min-h-screen bg-white pt-[100px]">
-      <div className="w-full h-[calc(100vh-100px)]">
+    <div className="w-full h-full bg-orange-400 p-4">
+      <div className="w-full h-full pt-8">
         <FlowingLiquidEffect tiltX={tiltX} />
       </div>
     </div>
@@ -41,86 +41,181 @@ function FlowingLiquidEffect({ tiltX }: { tiltX: number }) {
             <stop offset="0%" stopColor="#FFA500" />
             <stop offset="100%" stopColor="#FFA500" />
           </linearGradient>
-          <filter id="turbulence">
-            <feTurbulence
-              type="turbulence"
-              baseFrequency="0.01"
-              numOctaves="2"
-              result="turbulence"
-            />
-            <feDisplacementMap
-              in2="turbulence"
-              in="SourceGraphic"
-              scale="5"
-              xChannelSelector="R"
-              yChannelSelector="G"
-            />
-          </filter>
         </defs>
-
-        {/* 물결 효과 */}
-        <path
-          d={`
-          M0,50
-          Q25,${45 + Math.sin(Date.now() / 1000) * 5} 50,50
-          T100,50
-          V100 H0 Z
-          `}
-          fill="url(#orangeJuice)"
-          filter="url(#turbulence)"
-        >
-          <animate
-            attributeName="d"
-            dur="5s"
-            repeatCount="indefinite"
-            values={`
-            M0,50 Q25,${45 + Math.sin(0) * 5} 50,50 T100,50 V100 H0 Z;
-            M0,50 Q25,${45 + Math.sin(Math.PI / 2) * 5} 50,50 T100,50 V100 H0 Z;
-            M0,50 Q25,${45 + Math.sin(Math.PI) * 5} 50,50 T100,50 V100 H0 Z;
-            M0,50 Q25,${
-              45 + Math.sin((3 * Math.PI) / 2) * 5
-            } 50,50 T100,50 V100 H0 Z;
-            M0,50 Q25,${45 + Math.sin(2 * Math.PI) * 5} 50,50 T100,50 V100 H0 Z
-            `}
-          />
-        </path>
         {/* Liquid flowing over the top */}
         {Math.abs(tiltX) > 20 && (
           <path
             d={`
-            M${tiltX > 0 ? 100 : 0},0
-            Q${50 + tiltX * 4.5},30 ${tiltX > 0 ? 0 : 100},0
-            Z
+              M${tiltX > 0 ? 100 : 0},0
+              Q${50 + tiltX * 1.5},10 ${tiltX > 0 ? 0 : 100},0
+              Z
             `}
             fill="url(#orangeJuice)"
-            opacity={Math.min(Math.abs(tiltX) * 0.03, 1)}
+            opacity={Math.min(Math.abs(tiltX) * 0.02, 0.8)}
           />
         )}
 
-        {/* 버블 효과 */}
         <g id="bubbles">
-          {[...Array(20)].map((_, i) => (
-            <circle
-              key={i}
-              cx={Math.random() * 100}
-              cy={100 + Math.random() * 20}
-              r={0.5 + Math.random() * 1.5}
-              fill="rgba(255,255,255,0.7)"
-            >
-              <animate
-                attributeName="cy"
-                values={`${100 + Math.random() * 20};-10`}
-                dur={`${5 + Math.random() * 5}s`}
-                repeatCount="indefinite"
-              />
-              <animate
-                attributeName="r"
-                values={`${0.5 + Math.random() * 1.5};${0.2 + Math.random()}`}
-                dur={`${5 + Math.random() * 5}s`}
-                repeatCount="indefinite"
-              />
-            </circle>
-          ))}
+          <circle cx="5" cy="100" r="0.3" fill="rgba(255,255,255,0.5)">
+            <animate
+              attributeName="cy"
+              values="100;20;100"
+              dur="8s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="15" cy="100" r="0.2" fill="rgba(255,255,255,0.5)">
+            <animate
+              attributeName="cy"
+              values="100;20;100"
+              dur="9s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="25" cy="100" r="0.4" fill="rgba(255,255,255,0.5)">
+            <animate
+              attributeName="cy"
+              values="100;20;100"
+              dur="7s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="35" cy="100" r="0.3" fill="rgba(255,255,255,0.5)">
+            <animate
+              attributeName="cy"
+              values="100;20;100"
+              dur="10s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="45" cy="100" r="0.2" fill="rgba(255,255,255,0.5)">
+            <animate
+              attributeName="cy"
+              values="100;20;100"
+              dur="6s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="55" cy="100" r="0.4" fill="rgba(255,255,255,0.5)">
+            <animate
+              attributeName="cy"
+              values="100;20;100"
+              dur="8.5s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="65" cy="100" r="0.3" fill="rgba(255,255,255,0.5)">
+            <animate
+              attributeName="cy"
+              values="100;20;100"
+              dur="7.5s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="75" cy="100" r="0.2" fill="rgba(255,255,255,0.5)">
+            <animate
+              attributeName="cy"
+              values="100;20;100"
+              dur="9.5s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="85" cy="100" r="0.4" fill="rgba(255,255,255,0.5)">
+            <animate
+              attributeName="cy"
+              values="100;20;100"
+              dur="6.5s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="95" cy="100" r="0.3" fill="rgba(255,255,255,0.5)">
+            <animate
+              attributeName="cy"
+              values="100;20;100"
+              dur="8s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="10" cy="100" r="0.2" fill="rgba(255,255,255,0.5)">
+            <animate
+              attributeName="cy"
+              values="100;20;100"
+              dur="7.2s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="20" cy="100" r="0.3" fill="rgba(255,255,255,0.5)">
+            <animate
+              attributeName="cy"
+              values="100;20;100"
+              dur="8.7s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="30" cy="100" r="0.2" fill="rgba(255,255,255,0.5)">
+            <animate
+              attributeName="cy"
+              values="100;20;100"
+              dur="6.8s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="40" cy="100" r="0.4" fill="rgba(255,255,255,0.5)">
+            <animate
+              attributeName="cy"
+              values="100;20;100"
+              dur="9.3s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="50" cy="100" r="0.3" fill="rgba(255,255,255,0.5)">
+            <animate
+              attributeName="cy"
+              values="100;20;100"
+              dur="7.7s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="60" cy="100" r="0.2" fill="rgba(255,255,255,0.5)">
+            <animate
+              attributeName="cy"
+              values="100;20;100"
+              dur="8.3s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="70" cy="100" r="0.4" fill="rgba(255,255,255,0.5)">
+            <animate
+              attributeName="cy"
+              values="100;20;100"
+              dur="6.3s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="80" cy="100" r="0.3" fill="rgba(255,255,255,0.5)">
+            <animate
+              attributeName="cy"
+              values="100;20;100"
+              dur="9.7s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="90" cy="100" r="0.2" fill="rgba(255,255,255,0.5)">
+            <animate
+              attributeName="cy"
+              values="100;20;100"
+              dur="7.3s"
+              repeatCount="indefinite"
+            />
+          </circle>
+          <circle cx="100" cy="100" r="0.3" fill="rgba(255,255,255,0.5)">
+            <animate
+              attributeName="cy"
+              values="100;20;100"
+              dur="8.8s"
+              repeatCount="indefinite"
+            />
+          </circle>
         </g>
       </svg>
       <style jsx>{`
